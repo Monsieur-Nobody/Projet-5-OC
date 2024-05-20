@@ -26,10 +26,14 @@ let currentIndex = 0;
 
 
 function updateDots(index) {
+    // Parcourt chaque élément 'dot' dans la collection 'dots'
     dots.forEach((dot, i) => {
+        // Vérifie si l'index courant est égal à l'index spécifié
         if (i === index) {
+            // Ajoute la classe 'dot_selected' si c'est le cas
             dot.classList.add('dot_selected'); 
         } else {
+            // Retire la classe 'dot_selected' si ce n'est pas le cas
             dot.classList.remove('dot_selected'); 
         }
     });
