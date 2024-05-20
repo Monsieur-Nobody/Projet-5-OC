@@ -41,22 +41,23 @@ function updateDots(index) {
 
 
 function updateCarousel(index, direction) {
-      
-      if (currentIndex === -1 && direction === 'left') {
-        currentIndex = slides.length - 1;
+    // Vérifie et ajuste l'index courant en fonction de la direction
+    if (currentIndex === -1 && direction === 'left') {
+        currentIndex = slides.length - 1; // Si à gauche depuis le début, va à la fin
     } else if (currentIndex === slides.length && direction === 'right') {
-        currentIndex = 0;
+        currentIndex = 0; // Si à droite depuis la fin, va au début
     }
 
-    
+    // Met à jour l'image du carrousel
     const imagePath = `assets/images/slideshow/${slides[currentIndex].image}`;
-    bannerImg.src = imagePath;
-    bannerImg.alt = `Slide ${currentIndex + 1}`;
+    bannerImg.src = imagePath; // Met à jour l'image source
+    bannerImg.alt = `Slide ${currentIndex + 1}`; // Met à jour le texte alternatif
 
-    
+    // Met à jour le texte de la légende
     const tagLine = slides[currentIndex].tagLine;
-    document.querySelector('p').innerHTML = tagLine;
+    document.querySelector('p').innerHTML = tagLine; // Met à jour la légende
 
+    // Affiche un message de débogage dans la console
     console.log(`Click sur la flèche ${direction}`);
 }
 
