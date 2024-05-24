@@ -20,16 +20,32 @@ const slides = [
 const bannerImg = document.querySelector('.banner-img');
 const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
-const dots = document.querySelectorAll('.dot'); 
+const dotsContainer = document.querySelector('.dots')
 
 let currentIndex = 0;
 
 
-function updateDots(index) {
+
+slides.forEach((slide, index) => {
+    const dot = document.createElement('div')// Crée un élément de type "Div"
+    dot.classList.add('dot')// lui ajoute la classe "dot"
+    dotsContainer.appendChild(dot)// et le positionne en tant qu'enfant de la classe '.dots' qui est la variable dotsContainer
+
+    // Ajouter un gestionnaire d'événements pour chaque point
+    dot.addEventListener('click', () => {
+        currentIndex = index; // Met à jour l'index courant avec celui du point cliqué
+        updateCarousel(); // Met à jour le carrousel pour afficher la nouvelle slide
+        console.log(`Slide index numéro : ${currentIndex}`)
+    });
+});
+
+const dots = document.querySelectorAll('.dot'); // Crée la variable "dots" pour chaque élémenet qui a une classe ".dot"
+
+function updateDots() {
     // Parcourt chaque élément 'dot' dans la collection 'dots'
     dots.forEach((dot, i) => {
         // Vérifie si l'index courant est égal à l'index spécifié
-        if (i === index) {
+        if (i === currentIndex) {
             // Ajoute la classe 'dot_selected' si c'est le cas
             dot.classList.add('dot_selected'); 
         } else {
@@ -40,7 +56,7 @@ function updateDots(index) {
 }
 
 
-function updateCarousel(index, direction) {
+function updateCarousel(direction) {
     // Vérifie et ajuste l'index courant en fonction de la direction
     if (currentIndex === -1 && direction === 'left') {
         currentIndex = slides.length - 1; // Si à gauche depuis le début, va à la fin
@@ -55,26 +71,29 @@ function updateCarousel(index, direction) {
 
     // Met à jour le texte de la légende
     const tagLine = slides[currentIndex].tagLine;
-    document.querySelector('p').innerHTML = tagLine; // Met à jour la légende
+    document.querySelector('#banner p').innerHTML = tagLine; // Met à jour la légende
 
     // Affiche un message de débogage dans la console
     console.log(`Click sur la flèche ${direction}`);
+
+    updateDots();
 }
 
 
 arrowLeft.addEventListener('click', function () {
     currentIndex = (currentIndex - 1);
-    updateCarousel(currentIndex, 'left');
-    updateDots(currentIndex); 
+    updateCarousel( 'left');
 });
 
 
 arrowRight.addEventListener('click', function () {
     currentIndex = (currentIndex + 1) ;
-    updateCarousel(currentIndex, 'right');
-    updateDots(currentIndex); 
+    updateCarousel( 'right');
+
 });
 
 
+
+
+
 updateCarousel(currentIndex );
-updateDots(currentIndex); 
